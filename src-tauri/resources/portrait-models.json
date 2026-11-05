@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "reshape": {
+    "version": 1,
+    "approvedModels": [
+      {
+        "capability": "landmarks",
+        "modelId": "landmarker",
+        "adapter": "face-mesh-478-v1",
+        "approvalStatus": "approved",
+        "reviewer": "Lance",
+        "evidence": "维护者确认 2026-09-27：哈希 111795f8… 与 face-mesh-478-v1 适配绑定一致；批次 E 八模型真实 ONNX 推理契约通过；依据 01 资产表与 NOTICE（yakhyo／MediaPipe，Apache-2.0）。局限：Google 原模型版本、转换 commit 与再分发授权链未做完整上游审计。"
+      },
+      {
+        "capability": "protection",
+        "modelId": "skin",
+        "adapter": "selfie-multiclass-logits-v1",
+        "approvalStatus": "approved",
+        "reviewer": "Lance",
+        "evidence": "维护者确认 2026-09-27：哈希 534fd56e… 与 selfie-multiclass-logits-v1 适配绑定一致；批次 E 八模型真实 ONNX 推理契约通过；依据 01 资产表与 NOTICE（Google MediaPipe，Apache-2.0）。局限：上游 source 为非固定 commit 的 main URL，TFLite→ONNX 转换版本与再分发链未做完整上游审计。"
+      },
+      {
+        "capability": "detection",
+        "modelId": "detector_blazeface",
+        "adapter": "blazeface-192-anchors-v1",
+        "approvalStatus": "approved",
+        "reviewer": "Lance",
+        "evidence": "维护者确认 2026-09-27：MediaPipe BlazeFace full range 官方 GCS 资产经 tf2onnx 离线转换为内置 ONNX（input [1,192,192,3]；输出 [1,2304,16]/[1,2304,1]），哈希 410b1c02… 与 blazeface-192-anchors-v1 绑定一致；上游 pbtxt／decoder／anchor／预处理契约逐项核验（192×192、XYWH、sigmoid、scale 192、2304 anchors、letterbox [-1,1]）；ONNX 与源 TFLite 数值对照 max_abs_diff ≤ 1.3e-4。局限：pbtxt 默认引用的 sparse 变体因 DENSIFY 稀疏编码无法转换，选用同目录非稀疏官方变体；转换 commit 与再分发授权链未做完整上游审计。"
+      }
+    ]
+  },
+  "body": {
+    "version": 1,
+    "approvedModels": [
+      {
+        "capability": "body-pose",
+        "modelId": "body_pose_rtmpose_s",
+        "adapter": "rtmpose-s-simcc-v1",
+        "approvalStatus": "approved",
+        "reviewer": "local-implementation-2026-10-24",
+        "evidence": "用户选择质量优先本地方案；OpenMMLab RTMPose-S Apache-2.0，固定 256x192 COCO-17 SimCC ONNX 镜像，输入输出与 SHA-256 已本地核验。"
+      },
+      {
+        "capability": "arm-parsing",
+        "modelId": "arm_parsing_schp_pascal7",
+        "adapter": "schp-pascal7-int8-v1",
+        "approvalStatus": "approved",
+        "reviewer": "local-implementation-2026-10-24",
+        "evidence": "用户选择质量优先本地方案；SCHP 代码及模型卡标注 MIT，Pascal-Person-Part 七类含上臂/下臂；INT8 ONNX 与 FP32 声明 99.77% 像素一致，输入输出与 SHA-256 已本地核验。训练数据再分发条款仍须发布前复核。"
+      }
+    ]
+  },
+  "models": [
+    {
+      "id": "detector",
+      "filename": "retinaface_r34.onnx",
+      "aliases": [],
+      "sha256": "bd0263dc2a465d32859555cb1741f2d98991eb0053696e8ee33fec583d30e630",
+      "source": "https://github.com/yakhyo/retinaface-pytorch/releases/download/v0.0.1/retinaface_r34.onnx",
+      "licenseSource": "https://github.com/yakhyo/retinaface-pytorch/blob/main/LICENSE"
+    },
+    {
+      "id": "landmarker",
+      "filename": "face_landmarker_Nx3x256x256.onnx",
+      "aliases": [],
+      "sha256": "111795f8703cdeb6d0c68a9f3cc966a0f23f8786bb00f4577a11f461fc4276ac",
+      "source": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/releases/download/weights/face_landmarker_Nx3x256x256.onnx",
+      "licenseSource": "https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/LICENSE"
+    },
+    {
+      "id": "parsing",
+      "filename": "face_parsing_resnet34.onnx",
+      "aliases": ["resnet34.onnx"],
+      "sha256": "5b805bba7b5660ab7070b5a381dcf75e5b3e04199f1e9387232a77a00095102e",
+      "source": "https://github.com/yakhyo/face-parsing/releases/download/weights/resnet34.onnx",
+      "licenseSource": "https://github.com/yakhyo/face-parsing/blob/main/LICENSE"
+    },
+    {
+      "id": "skin",
+      "filename": "selfie_multiclass.onnx",
+      "aliases": [],
+      "sha256": "534fd56e6c826e810a0e65d2e9a1d7bea4566c71ca354f3b2663e3a470acd738",
+      "source": "https://raw.githubusercontent.com/Pedrojok01/linux-broadcast/main/models/selfie_multiclass.onnx",
+      "licenseSource": "https://github.com/Pedrojok01/linux-broadcast/blob/main/models/Apache-2.0-LICENSE.txt"
+    },
+    {
+      "id": "retouch_detection",
+      "filename": "retouch_detection.onnx",
+      "aliases": [],
+      "sha256": "1085b4981d9e902118f10b357ca0a52fa0eaf9f81e1322078a38a8f7ce8a0408",
+      "source": "https://modelscope.cn/models/iic/cv_unet_skin-retouching",
+      "licenseSource": "https://modelscope.cn/models/iic/cv_unet_skin-retouching/file/view/master/LICENSE"
+    },
+    {
+      "id": "retouch_inpainting",
+      "filename": "retouch_inpainting.onnx",
+      "aliases": [],
+      "sha256": "a032928f8a0e8439a82f90712f69ce22ea3381acf864c70f5e51895964420466",
+      "source": "https://modelscope.cn/models/iic/cv_unet_skin-retouching",
+      "licenseSource": "https://modelscope.cn/models/iic/cv_unet_skin-retouching/file/view/master/LICENSE"
+    },
+    {
+      "id": "retouch_generator",
+      "filename": "retouch_generator.onnx",
+      "aliases": [],
+      "sha256": "625d6c00b83ed0892db43a1fb232179b22bf6a5a973f4e7c4cdef7ac369da2f3",
+      "source": "https://modelscope.cn/models/iic/cv_unet_skin-retouching",
+      "licenseSource": "https://modelscope.cn/models/iic/cv_unet_skin-retouching/file/view/master/LICENSE"
+    },
+    {
+      "id": "retouch_skin",
+      "filename": "tf_graph.onnx",
+      "aliases": [],
+      "sha256": "4b2a9a26d074ba02992106ad52bc6be9e90528947a10554c1dead77057b21551",
+      "source": "https://modelscope.cn/models/iic/cv_unet_skin-retouching",
+      "licenseSource": "https://modelscope.cn/models/iic/cv_unet_skin-retouching/file/view/master/LICENSE"
+    },
+    {
+      "id": "detector_blazeface",
+      "filename": "face_detection_full_range.onnx",
+      "aliases": [],
+      "sha256": "410b1c028c4c2b1c46909b6b212a2a4540276462285339c61bfc2a8c6f9ab317",
+      "source": "https://storage.googleapis.com/mediapipe-assets/face_detection_full_range.tflite",
+      "licenseSource": "https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE"
+    },
+    {
+      "id": "body_pose_rtmpose_s",
+      "filename": "rtmpose-s-256x192.onnx",
+      "aliases": [],
+      "sha256": "d869413ccfbc0ed027337c773f124d6362436239a83fd0a6e2d43b7a8377792e",
+      "source": "https://huggingface.co/pzoltowski/rtmpose-s-onnx/resolve/main/rtmpose-s_working.onnx",
+      "licenseSource": "https://github.com/open-mmlab/mmpose/blob/main/LICENSE"
+    },
+    {
+      "id": "arm_parsing_schp_pascal7",
+      "filename": "schp-pascal-7-int8.onnx",
+      "aliases": [],
+      "sha256": "66b12766d7f1ddbc3de972e67e8626be727507e7feeeca34e1b23b6f45e756d2",
+      "source": "https://huggingface.co/pirocheto/schp-pascal-7/resolve/main/onnx/schp-pascal-7-int8-static.onnx",
+      "licenseSource": "https://huggingface.co/pirocheto/schp-pascal-7/blob/main/LICENSE"
+    }
+  ]
+}

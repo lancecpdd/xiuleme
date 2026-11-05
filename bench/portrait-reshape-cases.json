@@ -1,0 +1,917 @@
+[
+  {
+    "name": "合成旧 sidecar：四项非零但缺少版本",
+    "input": {
+      "portrait": {
+        "slimFace": 70,
+        "smallFace": 60,
+        "cheekbones": 50,
+        "jawline": 40
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "legacy",
+    "normalized": null,
+    "enabled": false,
+    "strengths": {
+      "slimFace": 70,
+      "smallFace": 60,
+      "cheekbones": 50,
+      "jawline": 40
+    }
+  },
+  {
+    "name": "新照片默认关闭",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": false,
+        "faces": []
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": false,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "缺字段补全、强度归一化、匹配目标继承全局",
+    "input": {
+      "portrait": {
+        "slimFace": 125,
+        "smallFace": -2,
+        "cheekbones": 12.5,
+        "jawline": "80"
+      },
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": true,
+    "strengths": {
+      "slimFace": 100,
+      "smallFace": 0,
+      "cheekbones": 13,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "无可处理目标不激活",
+    "input": {
+      "portrait": {
+        "slimFace": 60
+      },
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": []
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 60,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "分组隐藏精确旁路",
+    "input": {
+      "portrait": {
+        "slimFace": 60
+      },
+      "sectionVisibility": {
+        "portraitReshape": false
+      },
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": []
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 60,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "零 override 禁止回退全局、未知数值字段丢弃",
+    "input": {
+      "portrait": {
+        "slimFace": 60
+      },
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [
+          {
+            "faceId": "face-1",
+            "sourceAnchor": {
+              "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "bounds": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ]
+            },
+            "overrides": {
+              "slimFace": 0,
+              "future": 99
+            }
+          }
+        ]
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": [
+        {
+          "faceId": "face-1",
+          "sourceAnchor": {
+            "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bounds": [
+              0.1,
+              0.2,
+              0.3,
+              0.4
+            ]
+          },
+          "overrides": {},
+          "protection": {
+            "hair": true,
+            "background": true,
+            "strokes": []
+          }
+        }
+      ]
+    },
+    "enabled": true,
+    "strengths": {
+      "slimFace": 60,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "未匹配的人脸 override 不作用于其他脸",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [
+          {
+            "faceId": "missing",
+            "sourceAnchor": {
+              "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "bounds": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ]
+            },
+            "overrides": {
+              "smallFace": 25.8,
+              "jawline": null
+            }
+          }
+        ]
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": [
+        {
+          "faceId": "missing",
+          "sourceAnchor": {
+            "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bounds": [
+              0.1,
+              0.2,
+              0.3,
+              0.4
+            ]
+          },
+          "overrides": {},
+          "protection": {
+            "hair": true,
+            "background": true,
+            "strokes": []
+          }
+        }
+      ]
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "未来 schema 原样透传不可执行",
+    "input": {
+      "portrait": {
+        "slimFace": 99
+      },
+      "portraitReshape": {
+        "schemaVersion": 2,
+        "engineVersion": "future",
+        "enabled": true,
+        "faces": [
+          {
+            "newData": [
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "extension": {
+          "keep": true
+        }
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "unsupported",
+    "normalized": {
+      "schemaVersion": 2,
+      "engineVersion": "future",
+      "enabled": true,
+      "faces": [
+        {
+          "newData": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "extension": {
+        "keep": true
+      }
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 99,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "未来 engine 不偷换当前引擎",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v2",
+        "enabled": true
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "unsupported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "mesh-arap-v2",
+      "enabled": true
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "字符串版本不会隐式转数值",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": "1",
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "unsupported",
+    "normalized": {
+      "schemaVersion": "1",
+      "engineVersion": "mesh-arap-v1",
+      "enabled": true
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "字符串 enabled 不激活且未知元数据保留",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": "true",
+        "note": "keep"
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": false,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "非法 faces 不丢掉保护后继续执行",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": "invalid"
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "invalid",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "mesh-arap-v1",
+      "enabled": true,
+      "faces": "invalid"
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "数组不是版本对象",
+    "input": {
+      "portraitReshape": []
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "invalid",
+    "normalized": null,
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "无版本对象保留但不升级",
+    "input": {
+      "portraitReshape": {
+        "enabled": true,
+        "note": "old"
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "legacy",
+    "normalized": {
+      "enabled": true,
+      "note": "old"
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "照片空间笔画和单脸非零 override 往返",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [
+          {
+            "faceId": "face-1",
+            "sourceAnchor": {
+              "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "bounds": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ]
+            },
+            "overrides": {
+              "jawline": 22.5
+            },
+            "protection": {
+              "hair": false,
+              "strokes": [
+                {
+                  "mode": "protect",
+                  "radius": 0.02,
+                  "points": [
+                    [
+                      0.2,
+                      0.3
+                    ],
+                    [
+                      0.3,
+                      0.4
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": [
+        {
+          "faceId": "face-1",
+          "sourceAnchor": {
+            "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bounds": [
+              0.1,
+              0.2,
+              0.3,
+              0.4
+            ]
+          },
+          "overrides": {},
+          "protection": {
+            "hair": false,
+            "background": true,
+            "strokes": [
+              {
+                "mode": "protect",
+                "radius": 0.02,
+                "points": [
+                  [
+                    0.2,
+                    0.3
+                  ],
+                  [
+                    0.3,
+                    0.4
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "笔画模式数组不能隐式转字符串",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [
+          {
+            "faceId": "face-1",
+            "sourceAnchor": {
+              "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "bounds": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ]
+            },
+            "protection": {
+              "strokes": [
+                {
+                  "mode": [
+                    "protect"
+                  ],
+                  "radius": 0.02,
+                  "points": [
+                    [
+                      0.2,
+                      0.3
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "invalid",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "mesh-arap-v1",
+      "enabled": true,
+      "faces": [
+        {
+          "faceId": "face-1",
+          "sourceAnchor": {
+            "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bounds": [
+              0.1,
+              0.2,
+              0.3,
+              0.4
+            ]
+          },
+          "protection": {
+            "strokes": [
+              {
+                "mode": [
+                  "protect"
+                ],
+                "radius": 0.02,
+                "points": [
+                  [
+                    0.2,
+                    0.3
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "非法 overrides 对象不得被忽略后套用全局值",
+    "input": {
+      "portrait": {
+        "slimFace": 80
+      },
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [
+          {
+            "faceId": "face-1",
+            "sourceAnchor": {
+              "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "bounds": [
+                0.1,
+                0.2,
+                0.3,
+                0.4
+              ]
+            },
+            "overrides": "invalid"
+          }
+        ]
+      }
+    },
+    "targets": [
+      "face-1"
+    ],
+    "status": "invalid",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "mesh-arap-v1",
+      "enabled": true,
+      "faces": [
+        {
+          "faceId": "face-1",
+          "sourceAnchor": {
+            "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "bounds": [
+              0.1,
+              0.2,
+              0.3,
+              0.4
+            ]
+          },
+          "overrides": "invalid"
+        }
+      ]
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 80,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "场景快照有效：原样透传且保持可执行",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [],
+        "snapshot": {
+          "version": "reshape-snapshot-v1",
+          "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "analysisKey": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "parameterHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "modelHashes": {
+            "landmarker": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          "meshVersion": "mediapipe-478-v1",
+          "baseDimensions": [
+            1024,
+            1024
+          ],
+          "protectionMap": null,
+          "groups": [],
+          "faces": []
+        }
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "场景快照未知版本：原样保留且不执行",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [],
+        "snapshot": {
+          "version": "reshape-snapshot-v9",
+          "faces": []
+        }
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "场景快照缺版本：保留原值拒绝执行",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [],
+        "snapshot": {
+          "faces": []
+        }
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "场景快照模型哈希损坏：有界拒绝",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [],
+        "snapshot": {
+          "version": "reshape-snapshot-v1",
+          "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "analysisKey": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "parameterHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "modelHashes": {},
+          "meshVersion": "mediapipe-478-v1",
+          "baseDimensions": [
+            1024,
+            1024
+          ],
+          "protectionMap": null,
+          "groups": [],
+          "faces": []
+        }
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  },
+  {
+    "name": "场景快照保护数据损坏：静态闸只做有界包装检查",
+    "input": {
+      "portraitReshape": {
+        "schemaVersion": 1,
+        "engineVersion": "mesh-arap-v1",
+        "enabled": true,
+        "faces": [],
+        "snapshot": {
+          "version": "reshape-snapshot-v1",
+          "sourceBaseHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "analysisKey": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "parameterHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "modelHashes": {
+            "landmarker": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          "meshVersion": "mediapipe-478-v1",
+          "baseDimensions": [
+            1024,
+            1024
+          ],
+          "protectionMap": {
+            "encoding": "rle-u8-v1",
+            "width": 1,
+            "height": 1,
+            "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "data": "AAAA"
+          },
+          "groups": [],
+          "faces": []
+        }
+      }
+    },
+    "targets": [],
+    "status": "supported",
+    "normalized": {
+      "schemaVersion": 1,
+      "engineVersion": "gpupixel-runtime-v1",
+      "enabled": true,
+      "faces": []
+    },
+    "enabled": false,
+    "strengths": {
+      "slimFace": 0,
+      "smallFace": 0,
+      "cheekbones": 0,
+      "jawline": 0
+    }
+  }
+]

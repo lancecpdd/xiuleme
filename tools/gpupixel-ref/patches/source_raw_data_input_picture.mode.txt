@@ -1,0 +1,3 @@
+# Applied by bootstrap.ps1: still-image path must use PICTURE mode.
+# Upstream SourceRawDataInput::uploadBytes defaults to VIDEO (multi-frame),
+# which often yields facesNum=0 on a single photo ¡ú FaceReshapeFilter has_face=0 ¡ú no thin-face.

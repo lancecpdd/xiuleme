@@ -1,0 +1,23 @@
+# Upstream GPUPixel clone (bootstrap.ps1)
+vendor/gpupixel/
+
+# Build / runtime output
+output/
+**/build/
+
+# Native artifacts
+*.dll
+*.exe
+*.a
+*.lib
+*.so
+*.dylib
+
+# Local test images / results
+*.png
+*.jpg
+*.jpeg
+!patches/**
+
+# MediaPipe Tasks model (downloaded by landmarks_mp.py)
+*.task

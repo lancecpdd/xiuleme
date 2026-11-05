@@ -1,0 +1,5 @@
+Vendored (sans large demo.png) from:
+  https://github.com/quqixun/gpupixel_pywrapper
+Local adjustments:
+  - pywrapper.cmake: demo.png no longer required in resource copy
+  - gpupixel_pywrapper.cc: destroy() uses delete[] to match new[]

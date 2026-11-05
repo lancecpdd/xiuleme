@@ -1,0 +1,99 @@
+XiuLeMe 人像中性灰模型来源与许可声明
+
+此文件随内置资源分发。模型文件由项目维护者离线提供；XiuLeMe 不在运行时下载人像模型。
+精确文件名、可接受别名、文件大小、SHA-256 及下载来源见 portrait-models.json。
+集成代码未修改 ONNX 权重；face_parsing_resnet34.onnx 接受上游文件名 resnet34.onnx。
+
+发布授权状态：待确认（pending-review）
+重塑独立通路：portrait-models.json 的 reshape.approvedModels 已登记三项维护者审批：
+landmarks（face-mesh-478-v1）、protection（selfie-multiclass-logits-v1）与
+detection（blazeface-192-anchors-v1，资产见第 6 项）。上述权重仅经新通路显式绑定采用。
+适配器与合成张量测试不是模型许可审批，也不是上游数值一致性验收。
+以下记录上游公开许可声明，不构成对全部权重、训练数据或再分发链的法律授权结论。
+项目开源、非商用并不自动取得权重再分发权。发布安装包前，维护者须核实各权重的
+适用许可与上游数据条件；本清单、哈希检查和随附许可证不能替代该核实。
+
+1. RetinaFace ResNet34
+来源：https://github.com/yakhyo/retinaface-pytorch/releases/download/v0.0.1/retinaface_r34.onnx
+仓库许可：https://github.com/yakhyo/retinaface-pytorch/blob/main/LICENSE
+MIT License；Copyright (c) 2024 Yakhyokhuja Valikhujaev。
+许可证全文见 portrait-MIT-LICENSE.txt。
+训练数据关联：WIDER FACE，https://shuoyang1213.me/WIDERFACE/ 。
+数据网站的 CC BY-NC-ND 声明须与权重许可分别核对；不能直接等同于权重许可。
+
+2. MediaPipe Face Landmarker V2 / Face Mesh ONNX
+来源：https://github.com/yakhyo/mediapipe-face-mesh-onnx/releases/download/weights/face_landmarker_Nx3x256x256.onnx
+仓库许可：https://github.com/yakhyo/mediapipe-face-mesh-onnx/blob/main/LICENSE
+Apache License 2.0；Copyright 2026 Yakhyokhuja Valikhujaev。
+上游技术来源：Google MediaPipe，https://github.com/google-ai-edge/mediapipe 。
+Apache License 全文见 portrait-Apache-2.0-LICENSE.txt；本项版权声明保留于此。
+
+3. BiSeNet ResNet34 Face Parsing
+来源：https://github.com/yakhyo/face-parsing/releases/download/weights/resnet34.onnx
+仓库许可：https://github.com/yakhyo/face-parsing/blob/main/LICENSE
+MIT License；Copyright (c) 2024 Yakhyokhuja Valikhujaev。
+许可证全文见 portrait-MIT-LICENSE.txt。
+训练数据关联：CelebAMask-HQ，https://github.com/switchablenorms/CelebAMask-HQ 。
+数据使用条款包含非商用研究及数据再分发限制；是否及如何适用于所选权重仍需确认。
+
+4. MediaPipe Selfie Multiclass Segmentation ONNX
+来源：https://raw.githubusercontent.com/Pedrojok01/linux-broadcast/main/models/selfie_multiclass.onnx
+来源说明：https://github.com/Pedrojok01/linux-broadcast/blob/main/models/README.md
+随附许可：https://github.com/Pedrojok01/linux-broadcast/blob/main/models/Apache-2.0-LICENSE.txt
+上游说明为 Google MediaPipe TFLite 模型经 tf2onnx 转换，声明 Apache License 2.0。
+许可证全文见 portrait-Apache-2.0-LICENSE.txt，保留上游附录的版权占位模板；不据此虚构版权归属。
+
+5. ModelScope cv_unet_skin-retouching（局部祛痘、匀肤及皮肤美白）
+来源：https://modelscope.cn/models/iic/cv_unet_skin-retouching
+结构代码：https://github.com/modelscope/modelscope/tree/master/modelscope/models/cv/skin_retouching
+许可来源：https://modelscope.cn/models/iic/cv_unet_skin-retouching/file/view/master/LICENSE
+结构代码声明 Apache License 2.0；Copyright (c) Alibaba, Inc. and its affiliates。
+retouch_detection.onnx、retouch_inpainting.onnx 来自 joint_20210926.pth；
+retouch_generator.onnx 来自 pytorch_model.pt；tf_graph.onnx 来自 tf_graph.pb。
+ONNX 为本地离线转换，模型完整性以 portrait-models.json 的 SHA-256 为准。
+相关 CRHD-3K 数据集的研究用途条件与权重再分发权须分别核实，本项发布授权仍待确认。
+
+6. MediaPipe BlazeFace full range（面部检测，重塑检测适配器专用）
+来源：https://storage.googleapis.com/mediapipe-assets/face_detection_full_range.tflite
+框架代码与许可：https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE
+Apache License 2.0；Copyright 2019 The MediaPipe Authors。
+face_detection_full_range.onnx 为本地 tf2onnx 离线转换（输入 [1,192,192,3]；输出
+reshaped_regressor_face_4 [1,2304,16]／reshaped_classifier_face_4 [1,2304,1]），
+转换未改动权重数值，完整性以 portrait-models.json 的 SHA-256 为准。
+上游 pbtxt 默认引用的 sparse 变体含 DENSIFY 稀疏算子、无法离线转换，未随包分发。
+许可证全文见 portrait-Apache-2.0-LICENSE.txt，保留上游附录的版权占位模板；不据此虚构版权归属。
+
+7. （已移除）3DDFA_V2 / face_3dmm 网格重塑引擎不再分发或加载。
+
+8. LaMa（塑形窄带补全，可选）
+文件：lama_fp16.onnx（本地/内置资源，见 ai_processing.rs）。
+塑形通路仅用于缩脸缝隙窄带 inpaint；未批准前商业包不默认捆绑。
+许可与再分发条件须单独核实。
+
+9. GPUPixel 原版美颜运行时（瘦脸／大眼／口红／腮红）
+上游：pixpark/gpupixel（Apache License 2.0），https://github.com/pixpark/gpupixel
+固定产品标签 v1.2.x.8（含 third_party/vnn）。本产品链接并分发 libgpupixel_rr
+（及依赖 libgpupixel、glfw、vnn_*）与 face_pc VNN 模型、lookup 贴图：
+- 引擎：engineVersion=gpupixel-runtime-v1；整图 RGBA bake，关键点由上游 VNN 检出。
+- 遗留：engineVersion=gpupixel-uv-v1 为独立 Rust UV 重述，读入时迁到 runtime。
+再分发须保留本 NOTICE 与上游 Apache-2.0 版权声明。
+
+10. RTMPose-S（瘦手臂人体姿态，经原生人像引擎加载）
+上游：OpenMMLab MMPose，https://github.com/open-mmlab/mmpose
+ONNX 镜像：https://huggingface.co/pzoltowski/rtmpose-s-onnx/resolve/main/rtmpose-s_working.onnx
+Apache License 2.0；固定 COCO-17、256×192 SimCC 导出，完整性以
+portrait-models.json 的 SHA-256 为准。许可证全文见 portrait-Apache-2.0-LICENSE.txt。
+COCO 训练数据许可与权重再分发链仍须在正式发布前复核。
+
+11. SCHP Pascal-Person-Part 7 类 INT8（瘦手臂人体部位解析，经原生人像引擎加载）
+原始实现：https://github.com/PeikeLi/Self-Correction-Human-Parsing
+ONNX 来源：https://huggingface.co/pirocheto/schp-pascal-7/resolve/main/onnx/schp-pascal-7-int8-static.onnx
+模型卡声明 MIT；标签含 Head、Torso、Upper Arms、Lower Arms、Upper/Lower Legs。
+许可证全文见 portrait-MIT-LICENSE.txt。Pascal-Person-Part 数据条款及该 ONNX 镜像的
+权重再分发链仍须在正式发布前复核，不能仅凭模型卡声明视为商业授权完成。
+
+12. OpenCV（原生人像引擎前后处理，core／imgproc；调试工具另用 imgcodecs）
+上游：https://opencv.org/ ；本产品静态链接 OpenCV 4.x（Apache License 2.0）。
+再分发须保留上游版权与 NOTICE。许可证全文见 portrait-Apache-2.0-LICENSE.txt。
+
+所有商标属于其各自所有者。以上许可文件按上游原文保留，中文来源说明不修改原许可条款。

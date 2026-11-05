@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.xiuleme.app</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>XiuLeMe</name>
+  <summary>A blazingly-fast, non-destructive, and GPU-accelerated RAW image editor</summary>
+  <description>
+    <p>
+      XiuLeMe is a modern, high-performance RAW image editor. It delivers a simple, beautiful editing experience in a lightweight package for Windows, macOS, and Linux.
+    </p>
+    <p>
+      Features include non-destructive editing, GPU-accelerated adjustments, masking, presets, and local AI-assisted tools.
+    </p>
+  </description>
+  <project_license>AGPL-3.0-or-later</project_license>
+  <developer_name>XiuLeMe</developer_name>
+  <launchable type="desktop-id">com.xiuleme.app.desktop</launchable>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2026-10-27" />
+  </releases>
+  <categories>
+    <category>Graphics</category>
+    <category>Photography</category>
+  </categories>
+</component>

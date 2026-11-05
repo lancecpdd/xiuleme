@@ -1,0 +1,12 @@
+/**
+ * Placeholder for Android EGL Session (no GLFW).
+ * Build with NDK against GPUPixel Android sources; export the same
+ * gpupixel_rr_* symbols as gpupixel_rr.h.
+ *
+ * Implementation checklist:
+ * - Create EGL pbuffer / offscreen context (export / headless safe)
+ * - Reuse BeautyFaceFilter / FaceReshapeFilter / Lipstick / Blusher chain
+ * - Resolve VNN + lookup assets from AAssetManager path injected via
+ *   gpupixel_rr_initialize(handle, resource_dir)
+ */
+#error "Implement Android EGL Session before linking this translation unit."

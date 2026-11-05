@@ -1,0 +1,64 @@
+id: com.xiuleme.app
+
+runtime: org.gnome.Platform
+runtime-version: '49'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.node24
+
+command: XiuLeMe
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=ipc
+
+build-options:
+  append-path: /usr/lib/sdk/node24/bin:/usr/lib/sdk/rust-stable/bin
+
+modules:
+  - name: XiuLeMe
+    buildsystem: simple
+    sources:
+      - type: dir
+        path: ..
+
+      - node-sources.json
+      - cargo-sources.json
+
+    build-options:
+      env:
+        CARGO_HOME: /run/build/XiuLeMe/cargo
+        XDG_CACHE_HOME: /run/build/XiuLeMe/flatpak-node/cache
+        npm_config_cache: /run/build/XiuLeMe/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+
+    build-commands:
+      # ONNX Runtime is loaded dynamically from resources/ and must be vendored (build.rs verifies its SHA-256).
+      - |
+        if [ ! -f src-tauri/resources/libonnxruntime.so ]; then
+          echo "Missing src-tauri/resources/libonnxruntime.so; run scripts/prepare-release-assets first." >&2
+          exit 1
+        fi
+
+      - npm ci --offline --legacy-peer-deps
+      - cargo --offline fetch --manifest-path src-tauri/Cargo.toml --verbose
+      - npm run --offline tauri build -- --no-bundle
+
+      - install -Dm644 -t /app/share/metainfo/ data/com.xiuleme.app.metainfo.xml
+      - install -Dm644 -t /app/share/applications/ data/com.xiuleme.app.desktop
+      - install -Dm755 -t /app/bin/ src-tauri/target/release/XiuLeMe
+
+      - desktop-file-edit --set-key=Icon --set-value="com.xiuleme.app" /app/share/applications/com.xiuleme.app.desktop
+
+      - install -Dm644 src-tauri/icons/32x32.png /app/share/icons/hicolor/32x32/apps/com.xiuleme.app.png
+      - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/com.xiuleme.app.png
+      - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/com.xiuleme.app.png
+      - install -Dm644 src-tauri/icons/icon.png /app/share/icons/hicolor/256x256@2/apps/com.xiuleme.app.png
+
+      - mkdir -p /app/lib/XiuLeMe
+      - cp -rf src-tauri/resources /app/lib/XiuLeMe
+      - cp -rf src-tauri/lensfun_db /app/lib/XiuLeMe
+
+      - install -Dm644 LICENSE /app/share/licenses/com.xiuleme.app/LICENSE

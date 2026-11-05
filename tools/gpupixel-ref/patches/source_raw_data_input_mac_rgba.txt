@@ -1,0 +1,4 @@
+# Applied by bootstrap: Mac still-image bake receives RGBA8888 from XiuLeMe.
+# Upstream genTextureWithRGBA uses GL_BGRA on GPUPIXEL_MAC (CVPixelBuffer convention),
+# which swaps R/B when fed RGBA and breaks beauty / reshape appearance.
+# Keep iOS on GL_BGRA; desktop Mac uses GL_RGBA.

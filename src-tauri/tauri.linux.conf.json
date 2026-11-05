@@ -1,0 +1,10 @@
+{
+  "bundle": {
+    "linux": {
+      "rpm": {
+        "provides": ["xiu-le-me"],
+        "recommends": ["webkit2gtk4.1", "webkit2gtk4", "libwebkit2gtk-4_1-0", "webkit2gtk-4_1-injected-bundles"]
+      }
+    }
+  }
+}
