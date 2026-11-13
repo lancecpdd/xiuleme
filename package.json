@@ -9,6 +9,8 @@
     "tauri": "tauri",
     "start": "tauri dev",
     "start:tethering": "tauri dev -- --features tethering",
+    "android:build": "tauri android build --target aarch64",
+    "android:build:apk": "tauri android build --target aarch64 --apk",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

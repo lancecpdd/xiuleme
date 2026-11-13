@@ -21,17 +21,28 @@ open class BuildTask : DefaultTask() {
             runTauriCli(executable)
         } catch (e: Exception) {
             if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                // Try different Windows-specific extensions
+                // Prefer absolute npm.cmd via cmd.exe — Gradle CreateProcess often
+                // cannot launch bare .cmd/.bat, and broken PATH entries break lookup.
+                val absoluteNpm = findWindowsNpmCmd()
+                if (absoluteNpm != null) {
+                    try {
+                        runTauriCliViaCmd(absoluteNpm)
+                        return
+                    } catch (absoluteException: Exception) {
+                        // fall through to extension fallbacks
+                    }
+                }
+
                 val fallbacks = listOf(
                     "$executable.exe",
                     "$executable.cmd",
                     "$executable.bat",
                 )
-                
+
                 var lastException: Exception = e
                 for (fallback in fallbacks) {
                     try {
-                        runTauriCli(fallback)
+                        runTauriCliViaCmd(fallback)
                         return
                     } catch (fallbackException: Exception) {
                         lastException = fallbackException
@@ -42,6 +53,20 @@ open class BuildTask : DefaultTask() {
                 throw e;
             }
         }
+    }
+
+    private fun findWindowsNpmCmd(): String? {
+        val candidates = mutableListOf<File>()
+        System.getenv("PATH")?.split(File.pathSeparatorChar)?.forEach { raw ->
+            val dir = raw.trim()
+            // Skip empty / relative junk from corrupted PATH (e.g. "ram Files\nodejs\")
+            if (dir.isEmpty() || !dir.contains(':')) return@forEach
+            candidates.add(File(dir, "npm.cmd"))
+        }
+        candidates.add(File("""C:\nvm4w\nodejs\npm.cmd"""))
+        candidates.add(File("""C:\Program Files\nodejs\npm.cmd"""))
+        candidates.add(File("""D:\Program Files\nodejs\npm.cmd"""))
+        return candidates.firstOrNull { it.isFile }?.absolutePath
     }
 
     fun runTauriCli(executable: String) {
@@ -63,6 +88,38 @@ open class BuildTask : DefaultTask() {
                 args("--release")
             }
             args(listOf("--target", target))
+        }.assertNormalExitValue()
+    }
+
+    private fun runTauriCliViaCmd(npmExecutable: String) {
+        val rootDirRel = rootDirRel ?: throw GradleException("rootDirRel cannot be null")
+        val target = target ?: throw GradleException("target cannot be null")
+        val release = release ?: throw GradleException("release cannot be null")
+
+        val cmdArgs = mutableListOf(
+            "/c",
+            npmExecutable,
+            "run",
+            "--",
+            "tauri",
+            "android",
+            "android-studio-script",
+        )
+        if (project.logger.isEnabled(LogLevel.DEBUG)) {
+            cmdArgs.add("-vv")
+        } else if (project.logger.isEnabled(LogLevel.INFO)) {
+            cmdArgs.add("-v")
+        }
+        if (release) {
+            cmdArgs.add("--release")
+        }
+        cmdArgs.add("--target")
+        cmdArgs.add(target)
+
+        project.exec {
+            workingDir(File(project.projectDir, rootDirRel))
+            executable("cmd.exe")
+            args(cmdArgs)
         }.assertNormalExitValue()
     }
 }

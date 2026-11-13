@@ -23,7 +23,7 @@ val rustlsPlatformVerifierMavenRepo: String? = try {
     val packages = json["packages"] as List<Map<String, Any>>
     val pkg = packages.first { it["name"] == "rustls-platform-verifier-android" }
     val manifestPath = pkg["manifest_path"] as String
-    manifestPath.replace("/Cargo.toml", "") + "/maven"
+    File(manifestPath).parentFile.resolve("maven").absolutePath
 } catch (e: Exception) {
     logger.warn("Could not locate rustls-platform-verifier Maven repo: ${e.message}")
     null

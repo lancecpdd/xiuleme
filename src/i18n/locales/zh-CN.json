@@ -298,7 +298,7 @@
     "retry": "重试",
     "sessionExpired": "登录状态已失效，请重新扫码登录。",
     "guestLoginHint": "扫码登录后可<highlight>提交 Bug 反馈</highlight>",
-    "skipLogin": "手机没电了，暂不登录！",
+    "skipLogin": "免登录体验",
     "tabAccount": "账号登录",
     "tabQr": "扫码登录",
     "title": "扫码登录（可选）",

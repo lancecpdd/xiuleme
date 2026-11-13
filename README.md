@@ -72,7 +72,9 @@ npm run tauri build
 Android release 包需要签名：在 `src-tauri/gen/android/` 下放置 `keystore.properties`（参照同目录的 `keystore.properties.example`），然后执行：
 
 ```bash
-npm run tauri android build
+# 仅 arm64-v8a（项目自带的 ONNX Runtime 只覆盖该 ABI；勿编 armv7/x86）
+npm run android:build
+# 或：npm run tauri android build --target aarch64
 ```
 
 带相机连线支持（macOS / Linux 需先安装 libgphoto2）：
